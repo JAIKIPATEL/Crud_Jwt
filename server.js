@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const logger = require('morgan');
-const flash = require('express-flash');
+// const logger = require('morgan');
+// const flash = require('express-flash');
 const session = require('express-session');
 
 
@@ -27,16 +27,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-// using middleware - Create routes
-app.use(cors());
-app.use(logger('dev'));
-app.use(flash());
-app.use(session({
-    secret: '123458cat',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60000 }
-}));
+// // using middleware - Create routes
+// app.use(cors());
+// app.use(logger('dev'));
+// app.use(flash());
+// app.use(session({
+//     secret: '123458cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { maxAge: 60000 }
+// }));
 
 app.use('/api/user', userRoute);
 app.use('/api/post', postRoute);

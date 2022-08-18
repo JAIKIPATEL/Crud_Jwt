@@ -1,4 +1,4 @@
-const { token } = require('morgan');
+// const { token } = require('morgan');
 const dbConn = require('../../../config/db.config');
 
 
@@ -34,13 +34,13 @@ exports.getUserByEmail = (email, result) => {
 
 exports.updateToken = (token, email, result) => {
 
-     dbConn.query(`UPDATE users SET token = ?  WHERE email = ?`, [token, email], (err, data) => {
+    dbConn.query(`UPDATE users SET token = ?  WHERE email = ?`, [token, email], (err, data) => {
         if (err) {
             return result(err, null);
         } else {
             return result(null, data);
         }
-     })
+    })
 }
 
 
@@ -108,29 +108,6 @@ exports.delete = (id, result) => {
         }
     });
 }
-
-
-// Delete a Registered user:
-// exports.delete = (id, result) => {
-
-//     dbConn.query(`SELECT * FROM users  WHERE id = ?`, id, (err, data) => {
-//         if (err) {
-//             return result(err, null);
-//         } else {
-//             if (data.length == 0)
-//                 return result(null, "Data does not exist");
-//             else
-//                 dbConn.query(`DELETE FROM users  WHERE id = ?`, id, (err) => {
-//                     if (!err) {
-//                         return result(null, "User is Deleted Successfully");
-//                     } else {
-//                         return result(err, null);
-//                     }
-//                 });
-//         }
-//     });
-// }
-
 
 // isDeleted users getAll :
 exports.deletedUsers = (result) => {
