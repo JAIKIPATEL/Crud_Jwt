@@ -3,23 +3,29 @@ const { genSaltSync, hashSync, compareSync } = require('bcrypt');
 const { sign } = require('jsonwebtoken');
 
 const dotenv = require('dotenv');
+const { token } = require('morgan');
 dotenv.config();
 
 
 // Register a new user:
 exports.create = (req, res) => {
-    console.log("hey");
+    //console.log("hey");
     const salt = genSaltSync(10);
     req.body.password = hashSync(req.body.password, salt);
     console.log(req.body.password);
 
+    const jsontokenreg = sign(
+        { email: req.body.email },
+         process.env.SECRET_KEY,
+          { expiresIn: "1h" });
+    req.body.token = jsontokenreg;
+
+
     userModel.create(req.body, (err, data) => {
-        console.log("before model of create");
+        //console.log("before model of create");
         if (err) {
             return res.json({ success: false, message: "Database connection error" });
         } else {
-            const jsontokenreg = sign({ data }, process.env.SECRET_KEY, { expiresIn: "1h" });
-
             console.log(req.body.password);
             return res.status(200).json({
                 success: "Data Created Successfully",
@@ -37,15 +43,23 @@ exports.login = (req, res) => {
         if (err) {
             return res.json({ message: "Invalid email or password" });
         } else {
+            const jsontoken = sign(
+                { email: req.body.email },
+                 process.env.SECRET_KEY,
+                  { expiresIn: "1h" });
+                  req.body.token = jsontoken
+
             const result = compareSync(req.body.password, data.password);
             if (result) {
-                data.password = undefined;
-                const jsontoken = sign({ result: data[0] }, process.env.SECRET_KEY, { expiresIn: "1h" });
-
-                console.log(req.body.password);
-                return res.status(200).json({
-                    success: "Login Successfully", token: jsontoken
-                });
+                userModel.updateToken(jsontoken, data.email, (err, data) => {
+                    if (err) {
+                        return res.json(err);
+                    } else {
+                        return res.status(200).json({
+                            success: "Login Successfully", token: jsontoken
+                        });
+                    }
+                })                               
             } else {
                 return res.json({ success: 0, message: "Invalid email or password" });
             }

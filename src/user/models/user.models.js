@@ -1,15 +1,16 @@
+const { token } = require('morgan');
 const dbConn = require('../../../config/db.config');
 
 
 // Register a new user:
 exports.create = (data, result) => {
 
-    const { firstName, lastName, age, gender, email, password, userTypes, status, isDeleted } = data;
+    const { firstName, lastName, age, gender, email, password, userTypes, status, isDeleted, token } = data;
 
     const insert = `INSERT INTO users(firstName, lastName, age, gender, email, password, 
-        userTypes, status, isDeleted) VALUES(?, ?, ?, ?, ?, ?, "User", "Approved", 0)`;
+        userTypes, status, isDeleted, token) VALUES(?, ?, ?, ?, ?, ?, "User", "Approved", 0, ?)`;
 
-    dbConn.query(insert, [firstName, lastName, age, gender, email, password, userTypes, status, isDeleted], (err) => {
+    dbConn.query(insert, [firstName, lastName, age, gender, email, password, token], (err) => {
         if (err) {
             return result(err, null);
         } else {
@@ -29,6 +30,17 @@ exports.getUserByEmail = (email, result) => {
             return result(null, data[0]);
         }
     });
+}
+
+exports.updateToken = (token, email, result) => {
+
+     dbConn.query(`UPDATE users SET token = ?  WHERE email = ?`, [token, email], (err, data) => {
+        if (err) {
+            return result(err, null);
+        } else {
+            return result(null, data);
+        }
+     })
 }
 
 
