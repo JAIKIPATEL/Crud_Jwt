@@ -79,7 +79,7 @@ exports.resetPassword = (req, res) => {
 // User Logout
 exports.logout = (req, res) => {
 
-    userModel.logout({ id: req.params.id }, (err, data) => {
+    userModel.logout(req.body.email, (err, data) => {
         if (err) {
             res.status(400).json(err)
         } else {

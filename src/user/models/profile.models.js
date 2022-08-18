@@ -59,10 +59,10 @@ exports.updatePassword = (id, new_password, result) => {
 
 
 // User Logout:
-exports.logout = (id, result) => {
-    const update = `UPDATE users SET token = ''  WHERE id = ?`;
+exports.logout = (email, result) => {
+    const update = `UPDATE users SET token = ''  WHERE email = ?`;
 
-    dbConn.query(update, id, (err, data) => {
+    dbConn.query(update, email, (err, data) => {
         if (!err) {
             return result(null, data);
         } else {
