@@ -35,8 +35,6 @@
 // });
 
 // module.exports = pool;
-
-
 const mysql = require('mysql');
 
 // connection pool
