@@ -53,6 +53,7 @@ exports.resetPassword = (req, res) => {
 
         userModel.resetPassword(req.params.id, (err, data) => {
             console.log(data[0].password);
+            // console.log(data);
             const result = compareSync(req.body.old_password, data[0].password);
 
             if (result) {
@@ -87,3 +88,6 @@ exports.logout = (req, res) => {
         }
     });
 }
+
+
+// send email

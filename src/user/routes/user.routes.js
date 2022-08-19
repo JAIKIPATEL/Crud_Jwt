@@ -36,20 +36,7 @@ router.get('/verify', auth, (req, res, next) => {
     console.log("Token Verification");
 });
 
-////////////////////////////////////////////////////////
 
-// isDeleted users getAll :
-// router.get('/admin/deletedUsers', userController.deletedUsers);
-
-// isDeleted posts getAll :
-// router.get('/admin/deletedPosts', userController.deletedPosts);
-
-/////////////////////////////////////////////////////////
-
-// Show User post:
-// router.get('/v1/usersOnly', userController.showUsersList);
-
-////////////////////////////////////////////////////////
 
 // Admin Access
 // Show all post: through Admin Access
@@ -63,8 +50,5 @@ router.put('/adminUpdate/:id', userController.adminPostUpdate);
 
 // Delete post ById: through Admin Access
 router.delete('/adminDelete/:id', userController.adminPostDelete);
-
-///////////////////////////////////////////////////////
-
 
 module.exports = router; 

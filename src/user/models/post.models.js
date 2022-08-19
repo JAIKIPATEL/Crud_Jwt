@@ -82,25 +82,3 @@ exports.delete = (id, result) => {
         }
     });
 }
-
-
-// Delete a Registered user:
-// exports.delete = (id, result) => {
-
-//     dbConn.query(`SELECT * FROM posts  WHERE id = ?`, id, (err, data) => {
-//         if (err) {
-//             return result(err, null);
-//         } else {
-//             if (data.length == 0)
-//                 return result(null, "Data does not exist");
-//             else
-//                 dbConn.query(`DELETE FROM posts  WHERE id = ?`, id, (err) => {
-//                     if (!err) {
-//                         return result(null, "Post is Deleted Successfully");
-//                     } else {
-//                         return result(err, null);
-//                     }
-//                 });
-//         }
-//     });
-// }

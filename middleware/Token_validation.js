@@ -27,5 +27,25 @@ dotenv.config();
             });
         }
     }
-   
+
+    
+
+
+    exports.isUser = (req, res, next) => {
+        if(res.locals.type == 'user'){
+            next();
+        }
+        else{
+            res.send("You don't have the authorization");
+        }
+    }
+    
+    exports.isAdmin = (req, res, next) => {
+        if(res.locals.type == 'admin'){
+            next();
+        }
+        else{
+            res.send("You don't have the authorization");
+        }
+    }
 module.exports = auth;

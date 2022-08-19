@@ -1,21 +1,6 @@
 const dbConn = require('../../../config/db.config');
 
 
-// // User resetPassword:
-// exports.resetPassword = (result) => {
-//     const reset = `UPDATE users SET password = ?  WHERE email = ?`;
-
-//     dbConn.query(reset, (err, data) => {
-//         if (err) {
-//             return result(err, null);
-//         } else {
-//             return result(null, data[0]);
-//         }
-//     });
-// }
-
-
-
 // User forgotPassword:
 exports.forgotPassword = (email, result) => {
     const forgot = `SELECT * from users  WHERE email = ?`;
@@ -70,3 +55,4 @@ exports.logout = (email, result) => {
         }
     });
 }
+

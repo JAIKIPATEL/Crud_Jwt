@@ -4,7 +4,7 @@ const router = express.Router();
 const postController = require('../controller/post.controller');
 
 
-// Create a new user
+// Create a new post
 router.post('/', postController.create);
 
 // retreive all post
@@ -21,6 +21,4 @@ router.patch('/:id', postController.update);
 
 // Delete a user with id
 router.delete('/:id', postController.delete);
-
-
 module.exports = router; 

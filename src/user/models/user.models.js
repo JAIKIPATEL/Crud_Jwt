@@ -73,6 +73,21 @@ exports.getById = (id, result) => {
         }
     });
 }
+// get Registered user By emailId:
+exports.getByemail = (email, result) => {
+
+    dbConn.query(`SELECT firstName, lastName, age, gender, email, password, 
+    userTypes, status, isDeleted FROM users WHERE email = ?`, [email], (err, data) => {
+        if (err) {
+            return result(err, null);
+        } else {
+            if (data.length == 0)
+                return result(null, "Record not found");
+            else
+                return result(null, data);
+        }
+    });
+}
 
 
 // Update a Registered user:

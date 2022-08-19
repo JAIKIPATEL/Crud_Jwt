@@ -19,6 +19,4 @@ router.get('/verify', auth, (req, res, next) => {
     console.log("Token Verification");
 });
 
-
-
 module.exports = router; 
